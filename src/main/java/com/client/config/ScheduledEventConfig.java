@@ -2,7 +2,6 @@ package com.client.config;
 
 import com.bullhornsdk.data.api.BullhornData;
 import com.client.ApplicationSettings;
-import com.client.core.dlmtasks.DateLastModifiedEventProcessing;
 import com.client.core.scheduledtasks.ScheduledEventProcessing;
 import com.client.core.scheduledtasks.config.ScheduledTasksSettings;
 import com.client.core.scheduledtasks.service.EventWorkflowFactory;
@@ -41,7 +40,7 @@ public class ScheduledEventConfig {
     }
 
     @Bean
-    public SchedulerFactoryBean mainScheduler(DateLastModifiedEventProcessing dateLastModifiedEventProcessing) {
+    public SchedulerFactoryBean mainScheduler() {
         SchedulerFactoryBean mainScheduler = new SchedulerFactoryBean();
         mainScheduler.setOverwriteExistingJobs(true);
         mainScheduler.setAutoStartup(true);
