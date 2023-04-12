@@ -47,22 +47,9 @@ public class ScheduledEventConfig {
         mainScheduler.setAutoStartup(true);
 
         List<CronTrigger> cronTriggers = new ArrayList<>(this.createCustomCronTriggers());
-        cronTriggers.add(this.createDateLastModifiedCronTrigger(dateLastModifiedEventProcessing));
         mainScheduler.setTriggers(cronTriggers.toArray(CronTrigger[]::new));
 
         return mainScheduler;
-    }
-
-    private CronTrigger createDateLastModifiedCronTrigger(DateLastModifiedEventProcessing dateLastModifiedEventProcessing) {
-        String dlmCron = scheduledTasksSettings.dateLastModifiedCronExpression();
-        MethodInvokingJobDetailFactoryBean jobDetailFactoryBean;
-        try {
-            jobDetailFactoryBean = this.configureJobDetailFactory(dateLastModifiedEventProcessing);
-            CronTriggerFactoryBean cronTriggerFactoryBean = this.configureCronTriggerFactoryBean(jobDetailFactoryBean, "Date Last Modified", dlmCron);
-            return cronTriggerFactoryBean.getObject();
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Could not create Job for Date Last Modified cron", e);
-        }
     }
 
     private List<CronTrigger> createCustomCronTriggers() {
